@@ -12,11 +12,11 @@ if __name__ == "__main__":
     def list_products():
         global row_counter
         row_counter = row_counter + 1
-        entry_ProductName = Entry(frameList).grid(row=row_counter, column=0)
-        entry_ProductCode = Entry(frameList).grid(row=row_counter, column=1)
-        entry_Price = Entry(frameList).grid(row=row_counter, column=2)
-        entry_Quantity = Entry(frameList).grid(row=row_counter, column=3)
-        entry_Points = Entry(frameList).grid(row=row_counter, column=4)
+        entry_ProductName = Entry(frameList).grid(row=row_counter, column=0, padx=20, pady=10)
+        entry_ProductCode = Entry(frameList).grid(row=row_counter, column=1, padx=20, pady=10)
+        entry_Price = Entry(frameList).grid(row=row_counter, column=2, padx=20, pady=10)
+        entry_Quantity = Entry(frameList).grid(row=row_counter, column=3, padx=20, pady=10)
+        entry_Points = Entry(frameList).grid(row=row_counter, column=4, padx=20, pady=10)
 
 
     root = Tk()
@@ -61,4 +61,5 @@ if __name__ == "__main__":
     frameList.pack(pady=10)
     welcome_Label.pack()
 
+    list_products()
     root.mainloop()
