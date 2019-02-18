@@ -9,28 +9,27 @@ from Order import Order
 if __name__ == "__main__":
 
     root = Tk()
-    root.geometry("1000x500") #specify fixed size of the window
-    root.resizable(0,0)  #make the resizable = False
+    root.geometry("1000x500")  # specify fixed size of the window
+    root.resizable(0,0)  # make the resizable = False
 
     frameTop = Frame(root)
-    frame2 = Frame(root)
+    frameMiddle = Frame(root)
+    frameList = Frame(root)
 
-    welcome_Label = Label(frameTop, text="Welcome to the Store Management System")
-    name_Label = Label(frame2, text="Staff name")
-    customerId_Label = Label(frame2, text="Customer ID")
-    addProducts_Label = Label(frame2, text="Add more products")
+    welcome_Label = Label(frameTop, text="Welcome to the Store Management System", font=("Courier", 20))
+    name_Label = Label(frameMiddle, text="Staff name", font=("Courier", 12))
+    customerId_Label = Label(frameMiddle, text="Customer ID", font=("Courier", 12))
+    addProducts_Label = Label(frameMiddle, text="Add more products", font=("Courier", 12))
+    add_Button = Button(frameMiddle, text="+", bg="#386fe5", fg="white", width=8, font=("Arial", 12, "bold"))
 
-    welcome_Label.config(font=("Courier", 20))
-    name_Label.config(font=("Courier", 12))
-    customerId_Label.config(font=("Courier", 12))
-    addProducts_Label.config(font=("Courier", 12))
+    productName_Label = Label(frameList, text="Product Name", font=("Courier", 12))
+    productCode_Label = Label(frameList, text="Product Code", font=("Courier", 12))
+    price_Label = Label(frameList, text="Price", font=("Courier", 12))
+    quantity_Label = Label(frameList, text="Quantity", font=("Courier", 12))
+    points_Label = Label(frameList, text="Points", font=("Courier", 12))
 
-    entry_Name = Entry(frame2)
-    entry_CustomerID = Entry(frame2)
-
-
-    add_Button = Button(frame2, text="+",bg="#386fe5", fg="white", width=8)
-    add_Button.config(font=("Arial", 12, "bold"))
+    entry_Name = Entry(frameMiddle)
+    entry_CustomerID = Entry(frameMiddle)
 
     name_Label.grid(row=0)
     customerId_Label.grid(row=1)
@@ -39,24 +38,18 @@ if __name__ == "__main__":
     addProducts_Label.grid(row=2)
     add_Button.grid(row=2, column=1)
 
-    frameTop.pack()
-    frame2.pack()
-    welcome_Label.pack(fill=X)
+    productName_Label.grid(row=0)
+    productCode_Label.grid(row=0, column=1)
+    price_Label.grid(row=0, column=2)
+    quantity_Label.grid(row=0, column=3)
+    points_Label.grid(row=0, column=4)
 
-    # topFrame = Frame(root)
-    # topFrame.pack()
-    #
-    # bottomFrame = Frame(root)
-    # bottomFrame.pack(side=BOTTOM)
-    #
-    # button1 = Button(topFrame, text="Button1", fg="red")
-    # button2 = Button(topFrame, text="Button2", fg="blue")
-    # button3 = Button(topFrame, text="Button3", fg="green")
-    # button4 = Button(bottomFrame, text="Button4", fg="purple")
-    #
-    # button1.pack(side=LEFT)
-    # button2.pack(side=LEFT)
-    # button3.pack(side=LEFT)
-    # button4.pack(side=RIGHT)
+    frameTop.pack(pady=10)  # padding by y-axis
+    frameMiddle.pack(pady=10)
+    frameList.pack(pady=10)
+    welcome_Label.pack()
+
+
+
 
     root.mainloop()
