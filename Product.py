@@ -1,8 +1,7 @@
 class Product:
-    def __init__(self, productCode, name, description, price, points):
-        self.__productCode = productCode
+    def __init__(self, name, productCode, price, points):
         self.__name = name
-        self.__description = description
+        self.__productCode = productCode
         self.__price = price
         self.__points = points
 
@@ -13,10 +12,6 @@ class Product:
     @property
     def name(self):
         return self.__name
-
-    @property
-    def description(self):
-        return self.__description
 
     @property
     def price(self):
@@ -36,10 +31,6 @@ class Product:
             raise TypeError("Name must be string")
         self.__name = value
 
-    @description.setter
-    def description(self, value):
-        self.__description = value
-
     @price.setter
     def price(self, value):
         if not isinstance(value, float):
@@ -53,5 +44,5 @@ class Product:
         self.__points = value
 
     def __str__(self):
-        return 'Product Code: {0} \nName: {1} \nDescription: {2} \nPrice: {3} \nPoints: {4}' \
-            .format(self.productCode, self.name, self.description, self.price, self.points)
+        return 'Product Code: {0} \nName: {1} \nPrice: {2} \nPoints: {3}' \
+            .format(self.name, self.productCode, self.price, self.points)
