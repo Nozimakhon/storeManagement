@@ -44,7 +44,7 @@ if __name__ == "__main__":
             t.wm_title("Receipt")
             store = Store(111, "Nozima's Store", "Zaytun street,45", 998908889900)
             product1 = Product(entry_ProductName.get(), entry_ProductCode.get(), int(entry_Price.get()),
-                               int(entry_Points.get()))
+                               int(entry_Points.get()), int(entry_Quantity.get()))
             staff = Staff(1234, 2222, entry_Name.get(), "blabla", "manager", 1234)
             customer = Customer(entry_CustomerID.get(), "ban", "ddd", 122, 23232323, ["VIP"])
             order = Order(store, customer, staff)
@@ -120,12 +120,6 @@ if __name__ == "__main__":
     quantity_Label.grid(row=0, column=3)
     points_Label.grid(row=0, column=4)
 
-
-
-    #scrollbar = Scrollbar(frameList)
-    #scrollbar.grid(row=0, column=5, sticky =N+S)
-    #scrollbar.config(command=frameList.yview)
-    #scrollbar.pack(side=RIGHT, fill=Y)
 
 
     #PACKing

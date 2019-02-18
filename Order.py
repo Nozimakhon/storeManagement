@@ -53,13 +53,13 @@ class Order:
         total_price = 0
         total_points = 0
         total_quantity = 0
-        receipt += '\nProduct name\tProduct Code\t\tPrice\t\tQ'
+        receipt += '\nProduct name\tProduct Code\t\tPrice\t\tQuantity\t\tPoints'
         for product in self.products:
-            receipt += '\n{0}\t\t\t{1}\t\t{2}\t\t{3}' \
-                .format(product.name, product.productCode, product.price, self.products[product])
-            total_price += product.price * self.products[product]
-            total_points += product.points * self.products[product]
-            total_quantity += self.products[product]
+            receipt += '\n{0}\t\t\t{1}\t\t{2}\t\t{3}\t\t{4}' \
+                .format(product.name, product.productCode, product.price, product.quantity, product.points, self.products[product])
+            total_price += product.price * product.quantity * self.products[product]
+            total_points += product.points * product.quantity * self.products[product]
+            total_quantity += product.quantity * self.products[product]
 
         receipt += "\n\n\tTOTAL:\t{0}\n" \
                    "\t# ITEMS SOLD: {1}" \
