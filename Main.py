@@ -8,6 +8,17 @@ from Order import Order
 
 if __name__ == "__main__":
 
+    row_counter = 1
+    def list_products():
+        global row_counter
+        row_counter = row_counter + 1
+        entry_ProductName = Entry(frameList).grid(row=row_counter, column=0)
+        entry_ProductCode = Entry(frameList).grid(row=row_counter, column=1)
+        entry_Price = Entry(frameList).grid(row=row_counter, column=2)
+        entry_Quantity = Entry(frameList).grid(row=row_counter, column=3)
+        entry_Points = Entry(frameList).grid(row=row_counter, column=4)
+
+
     root = Tk()
     root.geometry("1000x500")  # specify fixed size of the window
     root.resizable(0,0)  # make the resizable = False
@@ -20,7 +31,7 @@ if __name__ == "__main__":
     name_Label = Label(frameMiddle, text="Staff name", font=("Courier", 12))
     customerId_Label = Label(frameMiddle, text="Customer ID", font=("Courier", 12))
     addProducts_Label = Label(frameMiddle, text="Add more products", font=("Courier", 12))
-    add_Button = Button(frameMiddle, text="+", bg="#386fe5", fg="white", width=8, font=("Arial", 12, "bold"))
+    add_Button = Button(frameMiddle, text="+", bg="#386fe5", fg="white", width=8, font=("Arial", 12, "bold"), command=list_products)
 
     productName_Label = Label(frameList, text="Product Name", font=("Courier", 12))
     productCode_Label = Label(frameList, text="Product Code", font=("Courier", 12))
@@ -30,6 +41,7 @@ if __name__ == "__main__":
 
     entry_Name = Entry(frameMiddle)
     entry_CustomerID = Entry(frameMiddle)
+
 
     name_Label.grid(row=0)
     customerId_Label.grid(row=1)
@@ -48,8 +60,5 @@ if __name__ == "__main__":
     frameMiddle.pack(pady=10)
     frameList.pack(pady=10)
     welcome_Label.pack()
-
-
-
 
     root.mainloop()
