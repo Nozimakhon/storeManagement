@@ -10,6 +10,7 @@ import tkinter.messagebox
 if __name__ == "__main__":
 
     row_counter = 1
+
     def list_products():  # function to add new entries for adding product information
         global row_counter
         row_counter = row_counter + 1
@@ -29,8 +30,7 @@ if __name__ == "__main__":
         entry_Quantity.grid(row=row_counter, column=3, padx=20, pady=10)
         entry_Points.grid(row=row_counter, column=4, padx=20, pady=10)
 
-
-    def test():
+    def printing_receipt():
         store = Store(111, "Nozima's Store", "Zaytun street,45", 998908889900)
         product1 = Product(entry_ProductName.get(), entry_ProductCode.get(), int(entry_Price.get()), int(entry_Points.get()))
         staff = Staff(1234, 2222, entry_Name.get(), "blabla", "manager", 1234)
@@ -40,14 +40,20 @@ if __name__ == "__main__":
         order.printReceipt()
 
 
-    def test1():
-        if entry_ProductName.get()=='' or entry_ProductCode.get()=='' or entry_Price.get()=='' or entry_Quantity.get()=='' or\
-            entry_Points.get()=='':
+    def test_for_adding_new_list():
+        if entry_ProductName.get()=='' or entry_ProductCode.get()=='' or entry_Price.get()=='' or \
+                entry_Quantity.get()=='' or entry_Points.get()=='':
             tkinter.messagebox.showinfo("Warning!", "Firstly fill all the gaps, then add new item!")
         else:
             list_products()
 
 
+    def test_printing():
+        if entry_ProductName.get()=='' or entry_ProductCode.get()=='' or entry_Price.get()=='' or \
+                entry_Quantity.get()=='' or entry_Points.get()=='':
+            tkinter.messagebox.showinfo("Warning!", "Firstly fill all the gaps, then you can Print!")
+        else:
+            printing_receipt()
 
 
     root = Tk()
@@ -83,9 +89,9 @@ if __name__ == "__main__":
 
     #BUTTONS
     add_Button = Button(frameMiddle, text="+", bg="#386fe5", fg="white", width=8, font=("Arial", 12, "bold"),
-                        command=test1)
+                        command=test_for_adding_new_list)
     print_Button = Button(frameBottom, text="Print", bg="#386fe5", fg="white", width=8, font=("Courier", 12, "bold"),
-                          command=test)
+                          command=test_printing)
     close_Button = Button(frameBottom, text="Close", bg="#386fe5", fg="white", width=8, font=("Courier", 12, "bold"),
                           command= frameBottom.quit)
 
