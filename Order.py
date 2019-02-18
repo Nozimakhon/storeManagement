@@ -43,6 +43,7 @@ class Order:
             self.__quantity += 1
 
     def printReceipt(self):
+
         date = datetime.datetime.now()
 
         receipt = "\tWelcome to {0}\n\t\tStaff: {1}\n\tCustomer ID: {2}\n\n" \

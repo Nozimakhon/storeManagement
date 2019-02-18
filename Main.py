@@ -35,15 +35,16 @@ if __name__ == "__main__":
     def printing_receipt():
 
         try:
-            int(entry_Price.get())
+            float(entry_Price.get())
             int(entry_Points.get())
+            int(entry_Quantity.get())
         except (ValueError, TypeError):
-            tkinter.messagebox.showinfo("Warning!", "Prices and Points MUST be INTEGER")
+            tkinter.messagebox.showinfo("Warning!", "Price must be FLOAT or INTEGER\nPoints, Quantity - MUST be INTEGER")
         else:
             t = Toplevel()
             t.wm_title("Receipt")
             store = Store(111, "Nozima's Store", "Zaytun street,45", 998908889900)
-            product1 = Product(entry_ProductName.get(), entry_ProductCode.get(), int(entry_Price.get()),
+            product1 = Product(entry_ProductName.get(), entry_ProductCode.get(), float(entry_Price.get()),
                                int(entry_Points.get()), int(entry_Quantity.get()))
             staff = Staff(1234, 2222, entry_Name.get(), "blabla", "manager", 1234)
             customer = Customer(entry_CustomerID.get(), "ban", "ddd", 122, 23232323, ["VIP"])
@@ -119,8 +120,6 @@ if __name__ == "__main__":
     price_Label.grid(row=0, column=2)
     quantity_Label.grid(row=0, column=3)
     points_Label.grid(row=0, column=4)
-
-
 
     #PACKing
     frameTop.pack(pady=10)  # padding by y-axis
