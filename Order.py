@@ -66,7 +66,9 @@ class Order:
                    "\n\tTotal Points: {2}\n" \
                    "\t\t***CUSTOMER COPY***".format(total_price, total_quantity, total_points)
         self.customer.purchasing_points += total_points
-        print(receipt)
+
+        return receipt
+
 
 
 
