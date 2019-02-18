@@ -9,15 +9,19 @@ from Order import Order
 if __name__ == "__main__":
 
     root = Tk()
-    root.geometry("1000x500")
+    root.geometry("1000x500") #specify fixed size of the window
+    root.resizable(0,0)  #make the resizable = False
 
     frameTop = Frame(root)
     frame2 = Frame(root)
-    welcome_Label = Label(frameTop, text="Welcome to the Store Management System", bg="#93cbbd")
-    welcome_Label.config(font=("Courier", 20))
+
+    welcome_Label = Label(frameTop, text="Welcome to the Store Management System")
     name_Label = Label(frame2, text="Staff name")
     customerId_Label = Label(frame2, text="Customer ID")
 
+    welcome_Label.config(font=("Courier", 20))
+    name_Label.config(font=("Courier", 12))
+    customerId_Label.config(font=("Courier", 12))
     entry_Name = Entry(frame2)
     entry_CustomerID = Entry(frame2)
 
