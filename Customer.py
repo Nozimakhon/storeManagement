@@ -2,11 +2,11 @@
 from Citizen import Citizen
 
 class Customer(Citizen):
-    def __init__(self, SSN, name, address, purchasing_points, tel, memberships=[]):
+    def __init__(self, SSN, name, address, purchasing_points, tel, memberships=None):
         super().__init__(SSN, name, address)
         self.__purchasing_points = purchasing_points
         self.__tel = tel
-        self.__memberships = memberships
+        self.__memberships = memberships or []
 
     @property
     def purchasing_points(self):
@@ -41,4 +41,3 @@ class Customer(Citizen):
     def __str__(self):
         return 'SSN: {0} \nName: {1} \nAddress: {2} \nPurchasing Points: {3} \nTel: {4} \nMemberships: {5}' \
             .format(self.SSN, self.name, self.address, self.purchasing_points, self.tel, self.memberships)
-
