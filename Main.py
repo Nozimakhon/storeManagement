@@ -18,17 +18,26 @@ if __name__ == "__main__":
     welcome_Label = Label(frameTop, text="Welcome to the Store Management System")
     name_Label = Label(frame2, text="Staff name")
     customerId_Label = Label(frame2, text="Customer ID")
+    addProducts_Label = Label(frame2, text="Add more products")
 
     welcome_Label.config(font=("Courier", 20))
     name_Label.config(font=("Courier", 12))
     customerId_Label.config(font=("Courier", 12))
+    addProducts_Label.config(font=("Courier", 12))
+
     entry_Name = Entry(frame2)
     entry_CustomerID = Entry(frame2)
+
+
+    add_Button = Button(frame2, text="+",bg="#386fe5", fg="white", width=8)
+    add_Button.config(font=("Arial", 12, "bold"))
 
     name_Label.grid(row=0)
     customerId_Label.grid(row=1)
     entry_Name.grid(row=0, column=1)
     entry_CustomerID.grid(row=1, column=1)
+    addProducts_Label.grid(row=2)
+    add_Button.grid(row=2, column=1)
 
     frameTop.pack()
     frame2.pack()
