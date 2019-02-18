@@ -1,6 +1,7 @@
 
 from Citizen import Citizen
 
+
 class Customer(Citizen):
     def __init__(self, SSN, name, address, purchasing_points, tel, memberships=[]):
         super().__init__(SSN, name, address)

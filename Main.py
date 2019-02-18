@@ -10,9 +10,9 @@ import tkinter.messagebox
 
 if __name__ == "__main__":
 
-
     row_counter = 1
 
+    #FUNCTIONS
     def list_products():  # function to add new entries for adding product information
         global row_counter
         row_counter = row_counter + 1
@@ -33,18 +33,24 @@ if __name__ == "__main__":
         entry_Points.grid(row=row_counter, column=4, padx=20, pady=10)
 
     def printing_receipt():
-        t = Toplevel()
-        t.wm_title("Receipt")
-        store = Store(111, "Nozima's Store", "Zaytun street,45", 998908889900)
-        product1 = Product(entry_ProductName.get(), entry_ProductCode.get(), int(entry_Price.get()),
-                           int(entry_Points.get()))
-        staff = Staff(1234, 2222, entry_Name.get(), "blabla", "manager", 1234)
-        customer = Customer(entry_CustomerID.get(), "ban", "ddd", 122, 23232323, ["VIP"])
-        order = Order(store, customer, staff)
-        order.addProduct(product1)
-        labeltest = Label(t, text = str(order.printReceipt()), font=("Courier", 12))
-        labeltest.pack(side="top", fill="both", expand=True, padx=100, pady=100)
 
+        try:
+            int(entry_Price.get())
+            int(entry_Points.get())
+        except (ValueError, TypeError):
+            tkinter.messagebox.showinfo("Warning!", "Prices and Points MUST be INTEGER")
+        else:
+            t = Toplevel()
+            t.wm_title("Receipt")
+            store = Store(111, "Nozima's Store", "Zaytun street,45", 998908889900)
+            product1 = Product(entry_ProductName.get(), entry_ProductCode.get(), int(entry_Price.get()),
+                               int(entry_Points.get()))
+            staff = Staff(1234, 2222, entry_Name.get(), "blabla", "manager", 1234)
+            customer = Customer(entry_CustomerID.get(), "ban", "ddd", 122, 23232323, ["VIP"])
+            order = Order(store, customer, staff)
+            order.addProduct(product1)
+            labeltest = Label(t, text=str(order.printReceipt()), font=("Courier", 12))
+            labeltest.pack(side="top", fill="both", expand=True, padx=100, pady=100)
 
     def test_for_adding_new_list():
         if entry_ProductName.get()=='' or entry_ProductCode.get()=='' or entry_Price.get()=='' or \
@@ -60,6 +66,7 @@ if __name__ == "__main__":
         else:
             printing_receipt()
 
+    #Tkinter window
     root = Tk()
     root.geometry("1000x500")  # specify fixed size of the window
     root.resizable(0,0)  # make the resizable = False
