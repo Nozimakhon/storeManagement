@@ -9,12 +9,12 @@ from Staff import Staff
 from Store import Store
 
 if __name__ == "__main__":
+
     name_index = 0
     code_index = 1
     price_index = 2
     quantity_index = 3
     points_index = 4
-
     row_counter = 1
     products = []
 
@@ -82,8 +82,8 @@ if __name__ == "__main__":
 
     def printing_receipt():
         # Dummy Data    
-        store = Store(111, "Nozima's Store", "Zaytun street,45", 998908889900)
-        staff = Staff(1234, 2222, entry_Name.get(), "blabla", "manager", 1234)
+        store = Store(1111, "Nozima's & Darhon's Store", "Ziyollilar,9", 998908889900)
+        staff = Staff(1234, 2222, entry_Name.get(), "Ziyollilar,9", "Manager", 1234)
         customer = Customer(entry_CustomerID.get(), "ban", "ddd", 122, 23232323, ["VIP"])
         order = Order(store, customer, staff)
 
@@ -95,12 +95,11 @@ if __name__ == "__main__":
                     order.add_product(product, quantity)
                     del products[:]
 
-                # UI
+                # RECEIPT WINDOW
                 t = Toplevel()
                 t.wm_title("Receipt")
                 labeltest = Label(t, text=str(order.generate_receipt()), font=("Courier", 12))
                 labeltest.pack()
-
                 close_receipt_Button = Button(t, text="Close", bg="#386fe5", fg="white", width=8,
                                       font=("Courier", 12, "bold"), command=t.destroy)
                 close_receipt_Button.pack(pady=10)
@@ -110,7 +109,7 @@ if __name__ == "__main__":
         else:
             tkinter.messagebox.showinfo("Warning!", "Firstly fill all the gaps, then you can Print!")
 
-    #Tkinter window
+    # MAIN WINDOW
     root = Tk()
     root.geometry("1000x500")  # specify fixed size of the window
     root.resizable(0,0)  # make the resizable = False
@@ -121,13 +120,11 @@ if __name__ == "__main__":
     frameList = Frame(root)
     frameBottom = Frame(root)
 
-    #ENTRY
+    # ENTRY
     entry_Name = Entry(frameMiddle)
     entry_CustomerID = Entry(frameMiddle)
 
-    entry_Name.config(highlightcolor="yellow")
-
-    #LABELS
+    # LABELS
     welcome_Label = Label(frameTop, text="Welcome to the Store Management System", font=("Courier", 20))
     name_Label = Label(frameMiddle, text="Staff name", font=("Courier", 12))
     customerId_Label = Label(frameMiddle, text="Customer ID", font=("Courier", 12))
@@ -138,19 +135,15 @@ if __name__ == "__main__":
     quantity_Label = Label(frameList, text="Quantity", font=("Courier", 12))
     points_Label = Label(frameList, text="Points", font=("Courier", 12))
 
-    #BUTTONS
+    # BUTTONS
     add_Button = Button(frameMiddle, text="+", bg="#386fe5", fg="white", width=8, font=("Arial", 12, "bold"),
                         command=list_products)
     print_Button = Button(frameBottom, text="Print", bg="#386fe5", fg="white", width=8, font=("Courier", 12, "bold"),
                           command=printing_receipt)
     close_Button = Button(frameBottom, text="Close", bg="#386fe5", fg="white", width=8, font=("Courier", 12, "bold"),
                           command= frameBottom.quit)
-    # delete_row_Button Button(frameBottom, text="Delete Item", bg="#386fe5", fg="white", width=8, font=("Courier", 12, "bold"),
-    #                       #command=
-    #                          )
 
-
-    #GRID for middle frame
+    # GRID for middle frame
     name_Label.grid(row=0, pady=5)
     customerId_Label.grid(row=1, pady=5)
     entry_Name.grid(row=0, column=1)
@@ -158,14 +151,14 @@ if __name__ == "__main__":
     addProducts_Label.grid(row=2, pady=5)
     add_Button.grid(row=2, column=1)
 
-    #GRID for list frame Labels
+    # GRID for list frame Labels
     productName_Label.grid(row=0)
     productCode_Label.grid(row=0, column=1)
     price_Label.grid(row=0, column=2)
     quantity_Label.grid(row=0, column=3)
     points_Label.grid(row=0, column=4)
 
-    #PACKing
+    # PACKing
     frameTop.pack(pady=10)  # padding by y-axis
     frameMiddle.pack(pady=10)
     frameList.pack(pady=10)
@@ -174,6 +167,6 @@ if __name__ == "__main__":
     print_Button.pack(side=LEFT, padx=50)
     close_Button.pack(side=LEFT)
 
-    #callig functions
+    # CALLING FUNCTIONS
     list_products()
     root.mainloop()
