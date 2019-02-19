@@ -20,18 +20,20 @@ if __name__ == "__main__":
 
     #FUNCTIONS
     def list_products():  # function to add new entries for adding product information
-        global row_counter
-        row_counter = row_counter + 1
-        entry_ProductName = Entry(frameList)
-        entry_ProductCode = Entry(frameList)
-        entry_Price = Entry(frameList)
-        entry_Quantity = Entry(frameList)
-        entry_Points = Entry(frameList)
-        entry_ProductName.grid(row=row_counter, column=0, padx=20, pady=10)
-        entry_ProductCode.grid(row=row_counter, column=1, padx=20, pady=10)
-        entry_Price.grid(row=row_counter, column=2, padx=20, pady=10)
-        entry_Quantity.grid(row=row_counter, column=3, padx=20, pady=10)
-        entry_Points.grid(row=row_counter, column=4, padx=20, pady=10)
+        if not are_product_cells_empty():
+            global row_counter
+            row_counter = row_counter + 1
+            entry_ProductName = Entry(frameList)
+            entry_ProductCode = Entry(frameList)
+            entry_Price = Entry(frameList)
+            entry_Quantity = Entry(frameList)
+            entry_Points = Entry(frameList)
+            entry_ProductName.grid(row=row_counter, column=0, padx=20, pady=10)
+            entry_ProductCode.grid(row=row_counter, column=1, padx=20, pady=10)
+            entry_Price.grid(row=row_counter, column=2, padx=20, pady=10)
+            entry_Quantity.grid(row=row_counter, column=3, padx=20, pady=10)
+            entry_Points.grid(row=row_counter, column=4, padx=20, pady=10)
+
         if not are_product_cells_empty():
             products.append([entry_ProductName, entry_ProductCode, entry_Price, entry_Quantity, entry_Points])
         else:
@@ -80,6 +82,7 @@ if __name__ == "__main__":
 
         return product
 
+
     def printing_receipt():
         # Dummy Data    
         store = Store(1111, "Nozima's & Darhon's Store", "Ziyollilar,9", 998908889900)
@@ -93,16 +96,23 @@ if __name__ == "__main__":
                     product = get_product(entries)
                     quantity = int(entries[quantity_index].get())
                     order.add_product(product, quantity)
-                    del products[:]
 
                 # RECEIPT WINDOW
                 t = Toplevel()
                 t.wm_title("Receipt")
                 labeltest = Label(t, text=str(order.generate_receipt()), font=("Courier", 12))
                 labeltest.pack()
+
+                def array_clear():
+                    print("I AM HERE")
+                    del products[:]
+                    t.destroy()
+
                 close_receipt_Button = Button(t, text="Close", bg="#386fe5", fg="white", width=8,
-                                      font=("Courier", 12, "bold"), command=t.destroy)
+                                              font=("Courier", 12, "bold"), command=array_clear)
                 close_receipt_Button.pack(pady=10)
+                t.protocol("WM_DELETE_WINDOW", array_clear)
+
 
             else:
                 tkinter.messagebox.showinfo("Warning!", "Price must be FLOAT or INTEGER\nPoints, Quantity - MUST be INTEGER")
@@ -112,6 +122,7 @@ if __name__ == "__main__":
     # MAIN WINDOW
     root = Tk()
     root.geometry("1000x500")  # specify fixed size of the window
+    root.resizable(0,0)  # make the resizable = False
 
     # FRAMES
     frameTop = Frame(root)
