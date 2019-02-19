@@ -34,13 +34,13 @@ class Order:
     def quantity(self):
         return self.__quantity
 
-    def addProduct(self, product: Product):
+    def add_product(self, product: Product, quantity=1):
         if product in self.products:
-            self.__products[product] += 1
-            self.__quantity += 1
+            self.__products[product] += quantity
+            self.__quantity += quantity
         else:
-            self.__products[product] = 1
-            self.__quantity += 1
+            self.__products[product] = quantity
+            self.__quantity += quantity
 
     def printReceipt(self):
 
@@ -56,11 +56,12 @@ class Order:
         total_quantity = 0
         receipt += '\nProduct name\tProduct Code\t\tPrice\t\tQuantity\t\tPoints'
         for product in self.products:
-            receipt += '\n{0}\t\t\t{1}\t\t{2}\t\t{3}\t\t{4}' \
-                .format(product.name, product.productCode, product.price, product.quantity, product.points, self.products[product])
-            total_price += product.price * product.quantity * self.products[product]
-            total_points += product.points * product.quantity * self.products[product]
-            total_quantity += product.quantity * self.products[product]
+            product_quantity = self.products[product]
+            receipt += "\n{0}\t\t\t{1}\t\t{2}\t\t{3}\t\t{4}" \
+                .format(product.name, product.productCode, product.price, product_quantity, product.points)
+            total_price += product.price * product_quantity
+            total_points += product.points * product_quantity
+            total_quantity += product_quantity
 
         receipt += "\n\n\tTOTAL:\t{0}\n" \
                    "\t# ITEMS SOLD: {1}" \
