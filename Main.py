@@ -9,7 +9,6 @@ from Staff import Staff
 from Store import Store
 
 if __name__ == "__main__":
-
     name_index = 0
     code_index = 1
     price_index = 2
