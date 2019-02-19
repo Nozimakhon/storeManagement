@@ -112,7 +112,6 @@ if __name__ == "__main__":
     # MAIN WINDOW
     root = Tk()
     root.geometry("1000x500")  # specify fixed size of the window
-    root.resizable(0,0)  # make the resizable = False
 
     # FRAMES
     frameTop = Frame(root)
