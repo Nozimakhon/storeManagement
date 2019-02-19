@@ -1,5 +1,7 @@
 
 from tkinter import *
+from tkinter import ttk
+
 import tkinter.messagebox
 
 from Customer import Customer
@@ -28,11 +30,11 @@ if __name__ == "__main__":
             entry_Price = Entry(frameList)
             entry_Quantity = Entry(frameList)
             entry_Points = Entry(frameList)
-            entry_ProductName.grid(row=row_counter, column=0, padx=20, pady=10)
-            entry_ProductCode.grid(row=row_counter, column=1, padx=20, pady=10)
-            entry_Price.grid(row=row_counter, column=2, padx=20, pady=10)
-            entry_Quantity.grid(row=row_counter, column=3, padx=20, pady=10)
-            entry_Points.grid(row=row_counter, column=4, padx=20, pady=10)
+            entry_ProductName.grid(row=row_counter, column=0, padx=5, pady=10)
+            entry_ProductCode.grid(row=row_counter, column=1, padx=5, pady=10)
+            entry_Price.grid(row=row_counter, column=2, padx=5, pady=10)
+            entry_Quantity.grid(row=row_counter, column=3, padx=5, pady=10)
+            entry_Points.grid(row=row_counter, column=4, padx=5, pady=10)
 
         if not are_product_cells_empty():
             products.append([entry_ProductName, entry_ProductCode, entry_Price, entry_Quantity, entry_Points])
@@ -107,7 +109,7 @@ if __name__ == "__main__":
                     del products[:]
                     t.destroy()
 
-                close_receipt_Button = Button(t, text="Close", bg="#386fe5", fg="white", width=8,
+                close_receipt_Button = Button(t, text="Close", bg="#386fe5", width=8,
                                               font=("Courier", 12, "bold"), command=array_clear)
                 close_receipt_Button.pack(pady=10)
                 t.protocol("WM_DELETE_WINDOW", array_clear)
@@ -120,7 +122,7 @@ if __name__ == "__main__":
 
     # MAIN WINDOW
     root = Tk()
-    root.geometry("1000x500")  # specify fixed size of the window
+    root.geometry("1100x660")  # specify fixed size of the window
     root.title("Store Management System")
     root.resizable(0,0)  # make the resizable = False
 
@@ -146,11 +148,11 @@ if __name__ == "__main__":
     points_Label = Label(frameList, text="Points", font=("Courier", 12))
 
     # BUTTONS
-    add_Button = Button(frameMiddle, text="+", bg="#386fe5", fg="white", width=8, font=("Arial", 12, "bold"),
+    add_Button = Button(frameMiddle, text="+", bg="#386fe5", width=8, font=("Arial", 12, "bold"),
                         command=list_products)
-    print_Button = Button(frameBottom, text="Print", bg="#386fe5", fg="white", width=8, font=("Courier", 12, "bold"),
+    print_Button = Button(frameBottom, text="Print", bg="#386fe5", width=8, font=("Courier", 12, "bold"),
                           command=printing_receipt)
-    close_Button = Button(frameBottom, text="Close", bg="#386fe5", fg="white", width=8, font=("Courier", 12, "bold"),
+    close_Button = Button(frameBottom, text="Close", bg="#386fe5", width=8, font=("Courier", 12, "bold"),
                           command= frameBottom.quit)
 
     # GRID for middle frame
