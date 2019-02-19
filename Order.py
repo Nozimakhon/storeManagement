@@ -1,10 +1,9 @@
-
-from Store import Store
-from Customer import Customer
-from Staff import Staff
-from Product import Product
 import datetime
 
+from Customer import Customer
+from Product import Product
+from Staff import Staff
+from Store import Store
 
 class Order:
     def __init__(self, store: Store, customer: Customer, staff: Staff, products: dict = {}, quantity=0):
@@ -42,35 +41,72 @@ class Order:
             self.__products[product] = quantity
             self.__quantity += quantity
 
-    def printReceipt(self):
+    def calculate_receipt(self, products):
+        price = 0
+        product_quantity = 0
+        purchasing_points = 0
 
+        for product in products:
+            price += product.price * products[product]
+            product_quantity += products[product]
+            purchasing_points += product.points * products[product]
+        
+        return (price, product_quantity, purchasing_points)
+    
+    def generate_receipt_header(self):
         date = datetime.datetime.now()
 
-        receipt = "\tWelcome to {0}\n\t\tStaff: {1}\n\tCustomer ID: {2}\n\n" \
-                  "\t\tRECEIPT\n\t\t{3}\n\t\t{4}\n\t\tST # {5}" \
-            .format(self.store.storeName, self.staff.name, self.customer.SSN, \
-                    date.date(), date.time(), self.store.Id)
+        receipt_header = "\tWelcome to {0}\n"\
+            "\nStaff Name:\t{1}"\
+            "\nCustomer ID:\t{2}\n"\
+            "\nDate:\t\t{3}"\
+            "\nTime:\t\t{4}\n\n"\
+                .format(self.store.storeName, self.staff.name, self.customer.SSN, date.date(), date.time())
 
-        total_price = 0
-        total_points = 0
-        total_quantity = 0
-        receipt += '\nProduct name\tProduct Code\t\tPrice\t\tQuantity\t\tPoints'
+        return receipt_header
+    
+    def generate_receipt_body(self):
+        receipt_body = '\nProduct Name\tProduct Code\tPrice\t\tQuantity\tPoints'
+
         for product in self.products:
-            product_quantity = self.products[product]
-            receipt += "\n{0}\t\t\t{1}\t\t{2}\t\t{3}\t\t{4}" \
-                .format(product.name, product.productCode, product.price, product_quantity, product.points)
-            total_price += product.price * product_quantity
-            total_points += product.points * product_quantity
-            total_quantity += product_quantity
+            receipt_body += '\n{0}\t\t{1}\t\t{2}\t\t{3}\t\t{4}' \
+                .format(product.name, product.productCode, product.price, self.products[product], product.points)
 
-        receipt += "\n\n\tTOTAL:\t{0}\n" \
-                   "\t# ITEMS SOLD: {1}" \
-                   "\n\tTotal Points: {2}\n" \
-                   "\t\t***CUSTOMER COPY***".format(total_price, total_quantity, total_points)
-        self.customer.purchasing_points += total_points
+        return receipt_body
+
+    def generate_receipt_footer(self, price, product_quantity, purchasing_points):
+        receipt_footer = "\n\n\tTOTAL:\t\t{0} $" \
+                   "\n\t# ITEMS SOLD:\t{1}" \
+                   "\n\tTotal Points:\t{2}\n" \
+                   "\n\t\t***CUSTOMER COPY***".format(price, product_quantity, purchasing_points)
+
+        return receipt_footer
+    
+    def generate_receipt(self):
+        (price, purchasing_points, product_quantity) = self.calculate_receipt(self.products)
+        self.customer.purchasing_points += purchasing_points
+
+        receipt = self.generate_receipt_header()
+        receipt += self.generate_receipt_body()
+        receipt += self.generate_receipt_footer(price, product_quantity, purchasing_points)
 
         return receipt
 
 
+# # MARK: - Main
+# # Test Data
+# test_store = Store(513, "Kimchi Store", "123, Liberty str., Brooklyn", 9175926559)
+# test_customer = Customer(1234567, "John Doe", "102, Random 2 str, Brooklyn", 100, 3475926559)
+# test_staff = Staff(1007, 1234568, "Steven Doe", "9, 5th Ave", "Retail Assistant", 3000)
 
+# # -
+# product1 = Product("Milk", 10013, 2.50, 2)
+# product2 = Product("Milk", 10013, 2.50, 2)
+
+# order = Order(test_store, test_customer, test_staff)
+# order.add_product(product1, 2)
+# order.add_product(product2, 3)
+
+# receipt = order.generate_receipt()
+# print(receipt)
 
