@@ -104,7 +104,6 @@ if __name__ == "__main__":
                 labeltest.pack()
 
                 def array_clear():
-                    print("I AM HERE")
                     del products[:]
                     t.destroy()
 
