@@ -93,12 +93,18 @@ if __name__ == "__main__":
                     product = get_product(entries)
                     quantity = int(entries[quantity_index].get())
                     order.add_product(product, quantity)
+                    del products[:]
 
                 # UI
                 t = Toplevel()
                 t.wm_title("Receipt")
-                labeltest = Label(t, text=str(order.printReceipt()), font=("Courier", 12))
-                labeltest.pack(side="top", fill="both", expand=True, padx=100, pady=100)
+                labeltest = Label(t, text=str(order.generate_receipt()), font=("Courier", 12))
+                labeltest.pack()
+
+                close_receipt_Button = Button(t, text="Close", bg="#386fe5", fg="white", width=8,
+                                      font=("Courier", 12, "bold"), command=t.destroy)
+                close_receipt_Button.pack(pady=10)
+
             else:
                 tkinter.messagebox.showinfo("Warning!", "Price must be FLOAT or INTEGER\nPoints, Quantity - MUST be INTEGER")
         else:
@@ -119,6 +125,8 @@ if __name__ == "__main__":
     entry_Name = Entry(frameMiddle)
     entry_CustomerID = Entry(frameMiddle)
 
+    entry_Name.config(highlightcolor="yellow")
+
     #LABELS
     welcome_Label = Label(frameTop, text="Welcome to the Store Management System", font=("Courier", 20))
     name_Label = Label(frameMiddle, text="Staff name", font=("Courier", 12))
@@ -137,6 +145,10 @@ if __name__ == "__main__":
                           command=printing_receipt)
     close_Button = Button(frameBottom, text="Close", bg="#386fe5", fg="white", width=8, font=("Courier", 12, "bold"),
                           command= frameBottom.quit)
+    # delete_row_Button Button(frameBottom, text="Delete Item", bg="#386fe5", fg="white", width=8, font=("Courier", 12, "bold"),
+    #                       #command=
+    #                          )
+
 
     #GRID for middle frame
     name_Label.grid(row=0, pady=5)
@@ -146,7 +158,7 @@ if __name__ == "__main__":
     addProducts_Label.grid(row=2, pady=5)
     add_Button.grid(row=2, column=1)
 
-    #GRID for list frame
+    #GRID for list frame Labels
     productName_Label.grid(row=0)
     productCode_Label.grid(row=0, column=1)
     price_Label.grid(row=0, column=2)
