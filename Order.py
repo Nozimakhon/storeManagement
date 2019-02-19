@@ -33,13 +33,13 @@ class Order:
     def quantity(self):
         return self.__quantity
 
-    def addProduct(self, product):
+    def add_product(self, product, quantity=1):
         if product in self.products:
-            self.__products[product] += 1
-            self.__quantity += 1
+            self.__products[product] += quantity
+            self.__quantity += quantity
         else:
-            self.__products[product] = 1
-            self.__quantity += 1
+            self.__products[product] = quantity
+            self.__quantity += quantity
 
     # MARK: - Receipt
 
@@ -73,14 +73,14 @@ class Order:
         return receipt_body
 
     def generate_receipt_footer(self, price, product_quantity, purchasing_points):
-        receipt_footer = "\n\nTOTAL:\t\t{0}" \
+        receipt_footer = "\n\nTOTAL:\t\t{0} $" \
                    "\n# ITEMS SOLD:\t{1}" \
                    "\nTotal Points:\t{2}\n" \
                    "\n\t\t***CUSTOMER COPY***".format(price, product_quantity, purchasing_points)
 
         return receipt_footer
     
-    def generate_formatted_receipt(self):
+    def generate_receipt(self):
         (price, purchasing_points, product_quantity) = self.calculate_receipt(self.products)
         self.customer.purchasing_points += purchasing_points
 
@@ -90,3 +90,19 @@ class Order:
 
         return receipt
 
+# # MARK: - Main
+# # Test Data
+# test_store = Store(513, "Test Store", "123, Liberty str., Brooklyn", 9175926559)
+# test_customer = Customer(1234567, "John Doe", "102, Random 2 str, Brooklyn", 100, 3475926559)
+# test_staff = Staff(1007, 1234568, "Steven Doe", "9, 5th Ave", "Retail Assistant", 3000)
+
+# # -
+# product1 = Product(1934826891, "Milk", "Natural cow milk.", 2.50, 2)
+# product2 = Product(1934826892, "Bread", "Nutritious bread", 1.25, 1)
+
+# order = Order(test_store, test_customer, test_staff)
+# order.add_product(product1, 2)
+# order.add_product(product2, 3)
+
+# receipt = order.generate_receipt()
+# print(receipt)
