@@ -70,7 +70,7 @@ class Order:
         receipt_body = '\nProduct Name\tProduct Code\tPrice\tQuantity\tPoints'
 
         for product in self.products:
-            receipt_body += '\n\t{0}\t\t{1}\t{2}\t\t{3}\t\t{4}' \
+            receipt_body += '\n{0}\t\t{1}\t\t{2}\t\t{3}\t\t{4}' \
                 .format(product.name, product.productCode, product.price, self.products[product], product.points)
 
         return receipt_body
