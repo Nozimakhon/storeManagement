@@ -1,10 +1,9 @@
 class Product:
-    def __init__(self, name, productCode, price, points, quantity):
+    def __init__(self, name, productCode, price, points):
         self.__name = name
         self.__productCode = productCode
         self.__price = price
         self.__points = points
-        self.__quantity = quantity
 
     @property
     def productCode(self):
@@ -21,10 +20,6 @@ class Product:
     @property
     def points(self):
         return self.__points
-
-    @property
-    def quantity(self):
-        return self.__quantity
 
     @productCode.setter
     def productCode(self, value):
@@ -48,12 +43,6 @@ class Product:
             raise TypeError("Points must be integer")
         self.__points = value
 
-    @quantity.setter
-    def quantity(self, value):
-        if not isinstance(value, int):
-            raise TypeError("Quantity must be integer")
-        self.__quantity = value
-
     def __str__(self):
-        return 'Product Code: {0} \nName: {1} \nPrice: {2} \nPoints: {3} \nQuantity: {4}' \
-            .format(self.name, self.productCode, self.price, self.points, self.quantity)
+        return "Product Code: {0} \nName: {1} \nPrice: {2} \nPoints: {3}" \
+            .format(self.name, self.productCode, self.price, self.points)

@@ -33,25 +33,40 @@ if __name__ == "__main__":
         entry_Points.grid(row=row_counter, column=4, padx=20, pady=10)
 
     def printing_receipt():
+        if is_data_valid():
+            # Dummy Data
+            
+            store = Store(111, "Nozima's Store", "Zaytun street,45", 998908889900)
+            staff = Staff(1234, 2222, entry_Name.get(), "blabla", "manager", 1234)
+            customer = Customer(entry_CustomerID.get(), "ban", "ddd", 122, 23232323, ["VIP"])
+            order = Order(store, customer, staff)
 
+            # Calculation
+            (name, code, price, points, quantity) = get_product_fields()
+            product = Product(name, code, price, points)
+            order.add_product(product, quantity)
+
+            # UI
+            t = Toplevel()
+            t.wm_title("Receipt")
+            labeltest = Label(t, text=str(order.printReceipt()), font=("Courier", 12))
+            labeltest.pack(side="top", fill="both", expand=True, padx=100, pady=100)
+    
+    def is_data_valid():
         try:
             float(entry_Price.get())
             int(entry_Points.get())
             int(entry_Quantity.get())
         except (ValueError, TypeError):
             tkinter.messagebox.showinfo("Warning!", "Price must be FLOAT or INTEGER\nPoints, Quantity - MUST be INTEGER")
+            return False
         else:
-            t = Toplevel()
-            t.wm_title("Receipt")
-            store = Store(111, "Nozima's Store", "Zaytun street,45", 998908889900)
-            product1 = Product(entry_ProductName.get(), entry_ProductCode.get(), float(entry_Price.get()),
+            return True
+    
+    def get_product_fields():
+        return (entry_ProductName.get(), entry_ProductCode.get(), float(entry_Price.get()),
                                int(entry_Points.get()), int(entry_Quantity.get()))
-            staff = Staff(1234, 2222, entry_Name.get(), "blabla", "manager", 1234)
-            customer = Customer(entry_CustomerID.get(), "ban", "ddd", 122, 23232323, ["VIP"])
-            order = Order(store, customer, staff)
-            order.addProduct(product1)
-            labeltest = Label(t, text=str(order.printReceipt()), font=("Courier", 12))
-            labeltest.pack(side="top", fill="both", expand=True, padx=100, pady=100)
+
 
     def test_for_adding_new_list():
         if entry_ProductName.get()=='' or entry_ProductCode.get()=='' or entry_Price.get()=='' or \
