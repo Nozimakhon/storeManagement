@@ -1,26 +1,28 @@
 
 from tkinter import *
-from Store import Store
-from Customer import Customer
-from Staff import Staff
-from Product import Product
-from Order import Order
 import tkinter.messagebox
 
+from Customer import Customer
+from Order import Order
+from Product import Product
+from Staff import Staff
+from Store import Store
 
 if __name__ == "__main__":
 
+    name_index = 0
+    code_index = 1
+    price_index = 2
+    quantity_index = 3
+    points_index = 4
+
     row_counter = 1
+    products = []
 
     #FUNCTIONS
     def list_products():  # function to add new entries for adding product information
         global row_counter
         row_counter = row_counter + 1
-        global entry_ProductName
-        global entry_ProductCode
-        global entry_Price
-        global entry_Quantity
-        global entry_Points
         entry_ProductName = Entry(frameList)
         entry_ProductCode = Entry(frameList)
         entry_Price = Entry(frameList)
@@ -31,56 +33,77 @@ if __name__ == "__main__":
         entry_Price.grid(row=row_counter, column=2, padx=20, pady=10)
         entry_Quantity.grid(row=row_counter, column=3, padx=20, pady=10)
         entry_Points.grid(row=row_counter, column=4, padx=20, pady=10)
-
-    def printing_receipt():
-        if is_data_valid():
-            # Dummy Data
-            
-            store = Store(111, "Nozima's Store", "Zaytun street,45", 998908889900)
-            staff = Staff(1234, 2222, entry_Name.get(), "blabla", "manager", 1234)
-            customer = Customer(entry_CustomerID.get(), "ban", "ddd", 122, 23232323, ["VIP"])
-            order = Order(store, customer, staff)
-
-            # Calculation
-            (name, code, price, points, quantity) = get_product_fields()
-            product = Product(name, code, price, points)
-            order.add_product(product, quantity)
-
-            # UI
-            t = Toplevel()
-            t.wm_title("Receipt")
-            labeltest = Label(t, text=str(order.printReceipt()), font=("Courier", 12))
-            labeltest.pack(side="top", fill="both", expand=True, padx=100, pady=100)
+        if not are_product_cells_empty():
+            products.append([entry_ProductName, entry_ProductCode, entry_Price, entry_Quantity, entry_Points])
+        else:
+            tkinter.messagebox.showinfo("Warning!", "Firstly fill all the gaps, then add new item!")
     
-    def is_data_valid():
+    def are_product_cells_empty():
+        for entries in products:
+            if is_empty(entries):
+                return True
+
+        return False
+    
+    def is_empty(entries: [Entry]):
+        is_empty_field = False
+        
+        for entry in entries:
+            if entry.get() == "":
+                is_empty_field = True
+        
+        return is_empty_field
+
+    def are_product_cells_valid():
+        for entries in products:
+            if not is_valid(entries):
+                return False
+        
+        return True
+    
+    def is_valid(entries: [Entry]):
         try:
-            float(entry_Price.get())
-            int(entry_Points.get())
-            int(entry_Quantity.get())
+            float(entries[2].get())
+            int(entries[3].get())
+            int(entries[4].get())
         except (ValueError, TypeError):
-            tkinter.messagebox.showinfo("Warning!", "Price must be FLOAT or INTEGER\nPoints, Quantity - MUST be INTEGER")
             return False
         else:
             return True
     
-    def get_product_fields():
-        return (entry_ProductName.get(), entry_ProductCode.get(), float(entry_Price.get()),
-                               int(entry_Points.get()), int(entry_Quantity.get()))
+    def get_product(entries: [Entry]):
+        product = Product(
+            entries[name_index].get(), 
+            entries[code_index].get(), 
+            float(entries[price_index].get()), 
+            int(entries[points_index].get())
+        )
 
+        return product
 
-    def test_for_adding_new_list():
-        if entry_ProductName.get()=='' or entry_ProductCode.get()=='' or entry_Price.get()=='' or \
-                entry_Quantity.get()=='' or entry_Points.get()=='':
-            tkinter.messagebox.showinfo("Warning!", "Firstly fill all the gaps, then add new item!")
+    def printing_receipt():
+        # Dummy Data    
+        store = Store(111, "Nozima's Store", "Zaytun street,45", 998908889900)
+        staff = Staff(1234, 2222, entry_Name.get(), "blabla", "manager", 1234)
+        customer = Customer(entry_CustomerID.get(), "ban", "ddd", 122, 23232323, ["VIP"])
+        order = Order(store, customer, staff)
+
+        if not are_product_cells_empty():
+            if are_product_cells_valid():
+                for entries in products:
+                    product = get_product(entries)
+                    quantity = int(entries[quantity_index].get())
+                    order.add_product(product, quantity)
+
+                # UI
+                t = Toplevel()
+                t.wm_title("Receipt")
+                labeltest = Label(t, text=str(order.printReceipt()), font=("Courier", 12))
+                labeltest.pack(side="top", fill="both", expand=True, padx=100, pady=100)
+            else:
+                tkinter.messagebox.showinfo("Warning!", "Price must be FLOAT or INTEGER\nPoints, Quantity - MUST be INTEGER")
         else:
-            list_products()
-
-    def test_printing():
-        if entry_ProductName.get()=='' or entry_ProductCode.get()=='' or entry_Price.get()=='' or \
-                entry_Quantity.get()=='' or entry_Points.get()=='':
             tkinter.messagebox.showinfo("Warning!", "Firstly fill all the gaps, then you can Print!")
-        else:
-            printing_receipt()
 
     #Tkinter window
     root = Tk()
@@ -96,11 +119,6 @@ if __name__ == "__main__":
     #ENTRY
     entry_Name = Entry(frameMiddle)
     entry_CustomerID = Entry(frameMiddle)
-    entry_ProductName = Entry(frameList)
-    entry_ProductCode = Entry(frameList)
-    entry_Price = Entry(frameList)
-    entry_Quantity = Entry(frameList)
-    entry_Points = Entry(frameList)
 
     #LABELS
     welcome_Label = Label(frameTop, text="Welcome to the Store Management System", font=("Courier", 20))
@@ -115,9 +133,9 @@ if __name__ == "__main__":
 
     #BUTTONS
     add_Button = Button(frameMiddle, text="+", bg="#386fe5", fg="white", width=8, font=("Arial", 12, "bold"),
-                        command=test_for_adding_new_list)
+                        command=list_products)
     print_Button = Button(frameBottom, text="Print", bg="#386fe5", fg="white", width=8, font=("Courier", 12, "bold"),
-                          command=test_printing)
+                          command=printing_receipt)
     close_Button = Button(frameBottom, text="Close", bg="#386fe5", fg="white", width=8, font=("Courier", 12, "bold"),
                           command= frameBottom.quit)
 
